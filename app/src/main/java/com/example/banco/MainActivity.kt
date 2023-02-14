@@ -1,0 +1,68 @@
+package com.example.banco
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.banco.model.Account
+import com.example.banco.ui.theme.BancoTheme
+import com.example.banco.views.Login
+import com.example.banco.views.Menu
+import com.example.banco.views.Movements
+
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            BancoTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    MyAppNavHost()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MyAppNavHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
+    startDestination: String = "profile"
+) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = "login"
+    ) {
+        composable("login") { Login(navController) }
+        composable("menu") { Menu(navController) }
+        composable("movements") { Movements(navController) }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    BancoTheme {
+        MyAppNavHost()
+    }
+}
