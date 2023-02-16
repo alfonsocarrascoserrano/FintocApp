@@ -2,6 +2,9 @@ package com.example.banco
 
 import com.example.banco.model.*
 
+val link_token = "link_MjplGZ1i4WmQX50K_token_zTjpeyYzSXSCfvmunbiryyDx"
+const val secret_key = "sk_test_F9GqyRmemkfBfBxo4yMgHEU-RvjC32qd"
+
 val accounts: List<Account> = listOf(Account(id= "acc_nMNejK7BT8oGbvO4",
     `object` = "account",
     name= "Cuenta Corriente",

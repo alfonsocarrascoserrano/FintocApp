@@ -1,55 +1,61 @@
 package com.example.banco.views
 
+import android.app.Activity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+//import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.banco.MyAppNavHost
-import com.example.banco.ShowTopAppBar
-import com.example.banco.accounts
-import com.example.banco.model.Account
-import com.example.banco.model.Balance
-import com.example.banco.ui.theme.BancoTheme
+import com.example.banco.link_token
+import com.example.banco.viewModel.AccountViewModel
 
 @Composable
-fun Menu(navController: NavController) {//accounts: List<Account>
+fun Menu(navController: NavController, accountViewModel: AccountViewModel) {
 
-    ShowTopAppBar(navController = navController, name= "Cuentas")
+    val activity = (LocalContext.current as? Activity)
+
+    accountViewModel.getAccountList(link_token)
 
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
-        Text(text = "Seleccione Producto:")
+        Text(text = "Seleccione Producto de:")
         Spacer(modifier = Modifier.size(20.dp))
+        Text(text = if(accountViewModel.accountListResponse.size>0) accountViewModel.accountListResponse[0].holder_name else "")
+        Spacer(modifier = Modifier.size(40.dp))
 
         LazyColumn() {
 
-            items(accounts) { item ->
+            itemsIndexed(accountViewModel.accountListResponse) { index,item ->
                 Button(modifier = Modifier
                     .fillMaxWidth(0.8f)
                     .fillMaxHeight(0.05f), onClick = {
-                    navController.navigate("account")
+                    navController.navigate("account/"+index)
                 }) {
                     Text(item.name+" "+item.number, textAlign = TextAlign.Center)
                 }
             }
         }
+        Spacer(modifier = Modifier.size(30.dp))
+        Button(modifier = Modifier.fillMaxWidth(0.8f),
+            onClick = {
+                activity?.finish() }) {
+            Text(text = "Salir")
+        }
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun MenuPreview() {
     BancoTheme {
         Menu(rememberNavController())
     }
-}
+}*/

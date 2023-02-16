@@ -2,25 +2,25 @@ package com.example.banco.views
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+//import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.banco.ShowTopAppBar
-import com.example.banco.accounts
-import com.example.banco.ui.theme.BancoTheme
+import com.example.banco.link_token
+import com.example.banco.viewModel.AccountViewModel
+import com.example.banco.viewModel.MovementViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Account(navController: NavController) {//account: Account
+fun Account(navController: NavController, accindex: Int, accountViewModel: AccountViewModel, movementViewModel: MovementViewModel) {
+
+    val account = accountViewModel.accountListResponse[accindex]
     val listItems = arrayOf("Todos", "Último año", "Últimos 6 meses", "Último mes")
 
     var selectedItem by remember {
@@ -31,7 +31,7 @@ fun Account(navController: NavController) {//account: Account
         mutableStateOf(false)
     }
 
-    ShowTopAppBar(navController = navController, name= accounts[0].name)
+    ShowTopAppBar(navController = navController, name= account.name)
 
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +41,7 @@ fun Account(navController: NavController) {//account: Account
         Column() {
             Row() {
                 Text(
-                    text = accounts[0].official_name + " - " + accounts[0].number,
+                    text = account.official_name + " - " + account.number,
                     Modifier
                         .border(1.dp, Color.Black)
                         .weight(1f)
@@ -60,7 +60,7 @@ fun Account(navController: NavController) {//account: Account
                         .height(20.dp)
                 )
                 Text(
-                    text = accounts[0].holder_name,
+                    text = account.holder_name,
                     Modifier
                         .border(1.dp, Color.Black)
                         .weight(0.6f)
@@ -78,7 +78,7 @@ fun Account(navController: NavController) {//account: Account
                         .height(20.dp)
                 )
                 Text(
-                    text = accounts[0].holder_id,
+                    text = account.holder_id,
                     Modifier
                         .border(1.dp, Color.Black)
                         .weight(0.6f)
@@ -102,7 +102,7 @@ fun Account(navController: NavController) {//account: Account
                             .height(20.dp)
                     )
                     Text(
-                        text = accounts[0].balance.available.toString(),
+                        text = account.balance.available.toString(),
                         Modifier
                             .border(1.dp, Color.Black)
                             .weight(0.6f)
@@ -120,7 +120,7 @@ fun Account(navController: NavController) {//account: Account
                             .height(20.dp)
                     )
                     Text(
-                        text = accounts[0].balance.limit.toString(),
+                        text = account.balance.limit.toString(),
                         Modifier
                             .border(1.dp, Color.Black)
                             .weight(0.6f)
@@ -138,7 +138,7 @@ fun Account(navController: NavController) {//account: Account
                             .height(20.dp)
                     )
                     Text(
-                        text = accounts[0].balance.current.toString(),
+                        text = account.balance.current.toString(),
                         Modifier
                             .border(1.dp, Color.Black)
                             .weight(0.6f)
@@ -151,6 +151,7 @@ fun Account(navController: NavController) {//account: Account
             Row() {
                 Button(modifier = Modifier.height(55.dp),
                     onClick = {
+                        movementViewModel.getMovementList(account.id, link_token)
                         navController.navigate("movements/"+selectedItem.toString())
                     }) {
                     Text("Ver movimientos")
@@ -197,10 +198,10 @@ fun Account(navController: NavController) {//account: Account
 
 
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun AccountPreview() {
     BancoTheme {
         Account(rememberNavController())
     }
-}
+}*/
