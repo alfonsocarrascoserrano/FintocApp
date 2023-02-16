@@ -80,7 +80,7 @@ fun Movements(navController: NavController, movementViewModel: MovementViewModel
                         Row(Modifier.background(Color.LightGray)) {
                             TableCell(text = "Fecha", weight = column1Weight, height = 20)
                             TableCell(text = "Monto", weight = column2Weight, height = 20)
-                            TableCell(text = "Descripcion", weight = column3Weight, height = 20)
+                            TableCell(text = "Descripción", weight = column3Weight, height = 20)
                             TableCell(text = "Mas", weight = column4Weight, height = 20)
                         }
                     }

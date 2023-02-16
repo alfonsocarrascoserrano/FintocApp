@@ -53,7 +53,7 @@ fun MovDetails(navController: NavController) {
                 }
                 Row() {
                     Text(
-                        text = "F. transaccion",
+                        text = "F. transacción",
                         Modifier
                             .border(1.dp, Color.Black)
                             .weight(0.4f)
