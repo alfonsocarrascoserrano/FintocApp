@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.fintocapp.ShowTopAppBar
-import com.example.fintocapp.accounts
+import com.example.fintocapp.examplemovements
 import com.example.fintocapp.model.Movement
 import com.example.fintocapp.viewModel.MovementViewModel
 import java.time.LocalDate
@@ -34,7 +34,11 @@ var selectedMovement: Movement? = null
 @Composable
 fun Movements(navController: NavController, movementViewModel: MovementViewModel, filter: Int) {
 
-    val movements = movementViewModel.movementListResponse
+    val movements = if (filter<0) {
+        examplemovements
+    } else {
+        movementViewModel.movementListResponse
+    }
 
     val column1Weight = .25f
     val column2Weight = .23f
@@ -47,7 +51,11 @@ fun Movements(navController: NavController, movementViewModel: MovementViewModel
     val current = LocalDate.now()
     var filtered: BooleanArray = BooleanArray(movements.size)
 
-    val balance = Calculate(movements, filtered, formatter, current, filter)
+    val balance = if (filter<0){
+        Calculate(movements, filtered, formatter, current, filter+10)
+    } else {
+        Calculate(movements, filtered, formatter, current, filter)
+    }
 
     Scaffold(topBar = {
         ShowTopAppBar(navController = navController, name = "Movimientos") })
@@ -61,7 +69,7 @@ fun Movements(navController: NavController, movementViewModel: MovementViewModel
             if (filter > 0) {
                 Spacer(modifier = Modifier.size(30.dp))
                 Row(modifier = Modifier.wrapContentSize()) {
-                    Text(text = "Balance " + listItems[filter] + ": " + balance + " " + accounts[0].currency)
+                    Text(text = "Balance " + listItems[filter] + ": " + balance + " " + movements[0].currency)
                 }
                 Spacer(modifier = Modifier.size(20.dp))
             }

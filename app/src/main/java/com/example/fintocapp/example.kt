@@ -5,7 +5,7 @@ import com.example.fintocapp.model.*
 val link_token = "link_MjplGZ1i4WmQX50K_token_zTjpeyYzSXSCfvmunbiryyDx"
 const val secret_key = "sk_test_F9GqyRmemkfBfBxo4yMgHEU-RvjC32qd"
 
-val accounts: List<Account> = listOf(Account(id= "acc_nMNejK7BT8oGbvO4",
+val exampleaccounts: List<Account> = listOf(Account(id= "acc_nMNejK7BT8oGbvO4",
     `object` = "account",
     name= "Cuenta Corriente",
     official_name= "Cuenta Corriente Moneda Local",
@@ -52,7 +52,58 @@ Account(id= "acc_nMNejK7BT8oGbvO4",
     refreshed_at= "2020-11-18T18:43:54.591Z")
 )
 
-val movements = listOf<Movement>(
+val examplemovements = arrayListOf<Movement>(
+    Movement(
+        id = "mov_BO381oEATXonG6bj",
+        `object` =  "movement",
+        amount = 59400,
+        post_date = "2020-04-17T00:00:00.000Z",
+        description = "Traspaso de:Fintoc SpA",
+        transaction_date = "2020-04-16T11:31:12.000Z",
+        currency = "CLP",
+        reference_id = "123740123",
+        type = "transfer",
+        pending = false,
+        recipient_account = null,
+        sender_account = SenderAccount(
+            holder_id= "771806538",
+            holder_name= "Comercial y Producción SpA",
+            number= "1530108000",
+            institution= Institution(
+                id= "cl_banco_de_chile",
+                name= "Banco de Chile",
+                country= "cl"
+            )
+        ),
+        comment = "Pago factura 198"
+    ),
+    Movement(
+        id ="mov_53jYKGHM0DMlYQwd",
+        description ="Omnis similique et nam.",
+        amount =-6638010,
+        currency ="CLP",
+        post_date ="2021-02-14T00:00:00Z",
+        transaction_date =null,
+        type ="transfer",
+        recipient_account =RecipientAccount(
+            holder_id="584192437",
+            number="592934056",
+            institution=Institution(
+                id="cl_banco_itau",
+                name="Banco Itaú",
+                country="cl" ),
+            holder_name="José María Santacruz Madera"),
+        sender_account =null,
+        comment =null,
+        reference_id =null,
+        pending =false,
+        `object` ="movement"),
+    Movement(id="mov_PDkeRjHolGove90j",description="Qui qui aut est.",amount=9179263,currency="CLP",post_date="2022-02-14T00:00:00Z",transaction_date=null,type="transfer",recipient_account=null,sender_account=SenderAccount(holder_id="584192437",number="226953203",institution=Institution(id="mx_hey_banco",name="Hey Banco",country="mx"),holder_name="Sra. Arturo Anaya Rascón"),comment=null,reference_id=null,pending=false,`object`="movement"),
+    Movement(id="mov_Md9Y5PHQAgj9eQLg",description="Ut et repudiandae et.",amount=-7639734,currency="CLP",post_date="2022-11-14T00:00:00Z",transaction_date=null,type="other",recipient_account=null,sender_account=null,comment=null,reference_id=null,pending=false,`object`="movement"),Movement(id="mov_r0xNzXHEGkjyeVG6",description="Quod amet nobis est.",amount=-4757642,currency="CLP",post_date="2023-01-13T00:00:00Z",transaction_date=null,type="transfer",recipient_account=RecipientAccount(holder_id="652407749",number="979768510",institution=Institution(id="cl_tenpo",name="Tenpo",country="cl"),holder_name="Rosa Vera Amaya"),sender_account=null,comment=null,reference_id=null,pending=false,`object`="movement"),Movement(id="mov_bO7Y7RHp3ZQqe4Zl",description="Quaerat dolorum velit dicta.",amount=825890,currency="CLP",post_date="2023-02-15T00:00:00Z",transaction_date=null,type="other",recipient_account=null,sender_account=null,comment=null,reference_id=null,pending=false,`object`="movement")
+
+)
+
+val moreexamplemovements = arrayListOf<Movement>(
     Movement(
         id = "mov_BO381oEATXonG6bj",
         `object` =  "movement",

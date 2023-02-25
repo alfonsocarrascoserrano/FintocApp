@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.fintocapp.ShowTopAppBar
+import com.example.fintocapp.exampleaccounts
 import com.example.fintocapp.link_token
 import com.example.fintocapp.viewModel.AccountViewModel
 import com.example.fintocapp.viewModel.MovementViewModel
@@ -20,7 +21,8 @@ import com.example.fintocapp.viewModel.MovementViewModel
 @Composable
 fun Account(navController: NavController, accindex: Int, accountViewModel: AccountViewModel, movementViewModel: MovementViewModel) {
 
-    val account = accountViewModel.accountListResponse[accindex]
+    val account = if (accindex == -1) exampleaccounts[0]
+    else accountViewModel.accountListResponse[accindex]
     val listItems = arrayOf("Todos", "Último año", "Últimos 6 meses", "Último mes")
 
     var selectedItem by remember {
@@ -31,11 +33,13 @@ fun Account(navController: NavController, accindex: Int, accountViewModel: Accou
         mutableStateOf(false)
     }
 
-    ShowTopAppBar(navController = navController, name= account.name)
+    ShowTopAppBar(navController = navController, name = account.name)
 
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         Spacer(modifier = Modifier.size(20.dp))
 
         Column() {
@@ -90,7 +94,8 @@ fun Account(navController: NavController, accindex: Int, accountViewModel: Accou
                 Modifier
                     .border(1.dp, Color.Black)
                     .wrapContentSize()
-                    .padding(10.dp,0.dp)) {
+                    .padding(10.dp, 0.dp)
+            ) {
                 Text(text = "Balance")
                 Row() {
                     Text(
@@ -151,8 +156,12 @@ fun Account(navController: NavController, accindex: Int, accountViewModel: Accou
             Row() {
                 Button(modifier = Modifier.height(55.dp),
                     onClick = {
-                        movementViewModel.getMovementList(account.id, link_token)
-                        navController.navigate("movements/"+selectedItem.toString())
+                        if (accindex == -1) {
+                            navController.navigate("movements/" + (selectedItem-10).toString())
+                        } else {
+                            movementViewModel.getMovementList(account.id, link_token)
+                            navController.navigate("movements/" + selectedItem.toString())
+                        }
                     }) {
                     Text("Ver movimientos")
                 }

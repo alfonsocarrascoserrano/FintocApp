@@ -42,6 +42,15 @@ fun Menu(navController: NavController, accountViewModel: AccountViewModel) {
                     Text(item.name+" "+item.number, textAlign = TextAlign.Center)
                 }
             }
+            item{
+                Button(modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .fillMaxHeight(0.05f), onClick = {
+                    navController.navigate("account/-1")
+                }) {
+                    Text("Cuenta Corriente 123456789" , textAlign = TextAlign.Center)
+                }
+            }
         }
         Spacer(modifier = Modifier.size(30.dp))
         Button(modifier = Modifier.fillMaxWidth(0.8f),
