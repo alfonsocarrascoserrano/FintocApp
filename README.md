@@ -23,3 +23,5 @@ El detalle de un movimiento muestra los siguientes datos: Fecha, Fecha de transa
 Para emisores y receptores se muestra una sub tabla con: Cuenta, Rut, Nombre y Banco.
 
 <img src="https://user-images.githubusercontent.com/15837691/219394375-d6fedf39-27a3-4ccb-8453-432c0c94f7c6.png" width=35% height=35%>
+
+Los datos de prueba de Fintoc cambian constantemente y suelen generar movimientos en un rango de tiempo menor a una semana, considerando esto FintocApp siempre muestra una cuenta corriente 123456789 con datos estáticos para tener al menos 6 movimientos con fechas desde 2020 hasta febrero de 2023 para poder utilizar la función de filtro por periodo de tiempo.
